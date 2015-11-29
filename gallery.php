@@ -37,7 +37,7 @@ $result = $client->describeDBInstances(array(
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];;
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"UzmaFarheen","UzmaFarheen","Project",3306) or die("Error "$
+$link = mysqli_connect($endpoint,"UzmaFarheen","UzmaFarheen","Project",3306) or die("Error "$. mysqli_error($link));
 /* check connection */
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
@@ -47,7 +47,7 @@ $link->real_query("Select * FROM ITMO544");
 $res = $link->use_result();
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['raws3url'] . "\" /><img src =\"" .$row['finisheds3url'] . "$
+    echo "<img src =\" " . $row['raws3url'] . "\" /><img src =\"" .$row['finisheds3url'] . "$. "\"/>";
 echo $row['id'] . "Email: " . $row['email'];
 }
 echo "successfully executed";
