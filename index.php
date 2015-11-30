@@ -22,7 +22,7 @@ label {
 </head>
 <body>
     <div align="right">
-<a href='gallery.php'/>View Images!</a></br>
+<a href='gallery.php'/>View Images if Backup is in progress!</a></br>
 <a href='introspection.php'/>DB Backup!</a></br>
 </div>
 
