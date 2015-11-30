@@ -25,15 +25,6 @@ label {
 <a href='gallery.php'/>View Images if Backup is in progress!</a></br>
 <a href='introspection.php'/>DB Backup!</a></br>
 </div>
-<?php
-if((isset($_SESSION['introspec']))&&($_SESSION['introspec'])){
-echo "Work in Progress! Click on view previous Images ";
-}
-else
-{
-echo 'test';
-echo (isset($_SESSION['introspec']));
-?>
 <!-- The data encoding type, enctype, MUST be specified as below -->
 <form enctype="multipart/form-data" action="result.php" method="POST">
     <!-- MAX_FILE_SIZE must precede the file input field -->
