@@ -7,8 +7,8 @@ echo $_POST['email'];
 echo $_POST['phoneforsms'];
 echo $_POST['firstname'];
 $_SESSION['firstname']=$_POST['firstname'];
-$_SESSION['phone']=$_POST['phone'];
-$_SESSION['useremail']=$_POST['useremail'];
+$_SESSION['phoneforsms']=$_POST['phoneforsms'];
+$_SESSION['email']=$_POST['email'];
 }
 else
 {
@@ -85,8 +85,8 @@ $topicARN =$result['Topics'][$key]['TopicArn'];
 }
 }
 $uname=$_POST['username'];
-$email = $_POST['useremail'];
-$phoneforsms = $_POST['phone'];
+$email = $_POST['email'];
+$phoneforsms = $_POST['phoneforsms'];
 $raws3url = $url; 
 $finisheds3url = "none";
 $jpegfilename = basename($_FILES['userfile']['name']);
@@ -117,7 +117,7 @@ while ($row = $res->fetch_assoc()) {
     echo $row['id'] . " " . $row['email']. " " . $row['phoneforsms'];
 }
 $link->close();
-$url	= "gallery1.php";
+$url	= "gallery.php";
    header('Location: ' . $url, true);
    die();
 }
