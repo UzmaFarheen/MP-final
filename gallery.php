@@ -34,7 +34,7 @@ else {
 if(isset($_SESSION['email'])){
 $email=$_SESSION['email'];
 //echo $email;
-$linkrdb->real_query("SELECT * FROM MiniProject where email='$email'");
+$linkrdb->real_query("SELECT * FROM ITMO544 where email='$email'");
 $resrdb = $linkrdb->use_result();
 //echo "Result set order...\n";
 echo '<div align="left" class="fotorama" data-width="100" data-ratio="	100/46" data-max-width="50%">';
@@ -42,7 +42,7 @@ while ($row = $resrdb->fetch_assoc()) {
     echo "<img src =\"" .$row['finisheds3url'] . "\"/>";
 }
 echo'</div>';
-$linkrdb->real_query("SELECT * FROM Project where email='$email'");
+$linkrdb->real_query("SELECT * FROM ITMO544 where email='$email'");
 $resrdb = $linkrdb->use_result();
 //echo "Result set order...\n";
 echo '<div align="right" class="fotorama" data-width="700" data-ratio="700/467" data-max-width="50%">';
@@ -55,7 +55,7 @@ echo'</div>';
 else
 {
 echo "No image entered";
-$linkrdb->real_query("SELECT raws3url FROM Project");
+$linkrdb->real_query("SELECT raws3url FROM ITMO544");
 $resrdb = $linkrdb->use_result();
 //echo "Result set order...\n";
 echo '<div align="right" class="fotorama" data-width="700" data-ratio="700/467" data-max-width="50%">';
