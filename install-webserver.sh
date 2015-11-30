@@ -4,7 +4,7 @@ sudo apt-get -y update
 sudo apt-get install -y apache2 git php5 php5-curl mysql-client curl php5-mysql php5-imagick
 
 git clone https://github.com/UzmaFarheen/MP-final.git
-https://github.com/UzmaFarheen/ITMO544-localinstance.git
+git clone https://github.com/UzmaFarheen/ITMO544-localinstance.git
 
 sudo mv ./MP-final/index.html /var/www/html
 sudo mv ./MP-final/*.css /var/www/html
