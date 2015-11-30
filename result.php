@@ -50,6 +50,23 @@ $result = $s3->putObject([
 'ContentType' => $_FILES['userfile']['type'],
 'Body' => fopen($uploadfile,'r+')
 ]);
+$result = $s3->putBucketLifecycleConfiguration([
+		'Bucket' => $bucket,
+'LifecycleConfiguration' => [
+			'Rules' => [ 
+				[
+				'Expiration' => [
+				'Days' => 4,
+				],	
+			'NoncurrentVersionExpiration' => [
+			'NoncurrentDays' => 4,
+				],
+			'Prefix' => '', 
+			'Status' => 'Enabled',
+			],
+			],
+		],
+	]);
 $url = $result['ObjectURL'];
 echo $url;
 $thumbimageobj = new Imagick($uploadfile);
