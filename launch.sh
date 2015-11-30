@@ -41,12 +41,12 @@ aws cloudwatch put-metric-alarm --alarm-name Reduce --alarm-description "CPU fal
 #SNS topic for image subscription
 
 SNSTOPICPICARN=(`aws sns create-topic --name snspicture`)
-aws sns set-topic-attributes --topic-arn $SNSTOPICPICARN --attribute-name Name --attribute-value snspicture  
+aws sns set-topic-attributes --topic-arn $SNSTOPICPICARN --attribute-name Policy --attribute-value snspicture  
 
 #SNS topic for cloud watch subscription
 
 SNSTOPICWATCHARN=(`aws sns create-topic --name snswatch`)
-aws sns set-topic-attributes --topic-arn $SNSTOPICWATCHARN --attribute-name WatchName --attribute-value snswatch
+aws sns set-topic-attributes --topic-arn $SNSTOPICWATCHARN --attribute-name Policy --attribute-value snswatch
 
 #Subcribe
 
