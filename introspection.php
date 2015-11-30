@@ -1,5 +1,9 @@
 <?php
+session_start();
 require 'vendor/autoload.php';
+$introspec=true;
+$_SESSION['introspec']=$introspec;
+echo "=========== $introspec =======";
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-east-1'
@@ -17,9 +21,35 @@ if (mysqli_connect_errno()) {
 else {
 echo "Connection to RDB Success";
 }
-$tableName  = 'ITMO544';
-$backupFile = 'FP_database_backup_'.date('G_a_m_d_y').'.sql';
-$query      = "SELECT * INTO ITMO544 '$backupFile' FROM $tableName";
-$result = mysql_query($query);
+$backupFile = '/tmp/FinalDB'.date("Y-m-d-H-i-s").'.gz';
+$command = "mysqldump --opt -h $endpointrdb -u UzmaFarheen -p UzmaFarheen Project | gzip > $$
+exec($command);
+echo "success";
+                        $s3 = new Aws\S3\S3Client([
+                                'version' => 'latest',
+                                'region'  => 'us-east-1'
+                        ]);
+$bucket='mpuzma'.rand().'-dbdump';
+                        if(!$s3->doesBucketExist($bucket)) {
+                                $result = $s3->createBucket([
+                                        'ACL' => 'public-read',
+                                        'Bucket' => $bucket,
+                                        ]);
+  $s3->waitUntil('BucketExists', array('Bucket' => $bucket));
+    echo "$bucket Created Successfully";
+                        }
+$result = $s3->putObject([
+'ACL' => 'public-read',
+'Bucket' => $bucket,
+'Key' => $backupFile,
+'SourceFile'   => $backupFile,
+'Body' => fopen($backupFile,'r+'),
+]);
+echo "backup success";
+$url = $result['ObjectURL'];
+echo $url;
+$urlintro       = "index.php";
+   header('Location: ' . $urlintro, true);
+   die();
 $linkrdb->close();
 ?>
