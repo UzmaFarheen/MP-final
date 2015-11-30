@@ -21,6 +21,19 @@ label {
 </style>
 </head>
 <body>
+    <div align="right">
+<a href='gallery.php'/>View Images!</a></br>
+<a href='introspection.php'/>DB Backup!</a></br>
+</div>
+<?php
+if((isset($_SESSION['introspec']))&&($_SESSION['introspec'])){
+echo "Work in Progress, View Raw Images ";
+}
+else
+{
+echo 'test';
+}
+?>
 
 <!-- The data encoding type, enctype, MUST be specified as below -->
 <form enctype="multipart/form-data" action="result.php" method="POST">
