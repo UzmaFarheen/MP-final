@@ -4,11 +4,9 @@
 <h1>Welcome to Uzma's gallery</h1>
 <!-- // reference -http://fotorama.io/set-up/ -->
 <!-- 1. Link to jQuery (1.8 or later), -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> <!-$
-
-<!-- fotorama.css & fotorama.js. -->
-<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesh$
-<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> <!-$
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link  href="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
 
 <!-- 2. Add images to <div class="fotorama"></div>. -->
 <div class="fotorama">
@@ -37,7 +35,7 @@ $result = $client->describeDBInstances(array(
 $endpoint = $result['DBInstances'][0]['Endpoint']['Address'];;
 
 //echo "begin database";
-$link = mysqli_connect($endpoint,"UzmaFarheen","UzmaFarheen","Project",3306) or die("Error "$. mysqli_error($link));
+$link = mysqli_connect($endpoint,"UzmaFarheen","UzmaFarheen","Project",3306) or die("Error ". mysqli_error($link));
 /* check connection */
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
@@ -47,7 +45,7 @@ $link->real_query("Select * FROM ITMO544");
 $res = $link->use_result();
 echo "Result set order...\n";
 while ($row = $res->fetch_assoc()) {
-    echo "<img src =\" " . $row['raws3url'] . "\" /><img src =\"" .$row['finisheds3url'] . "$. "\"/>";
+    echo "<img src =\" " . $row['raws3url'] . "\" /><img src =\"" .$row['finisheds3url'] . ""\"/>";
 echo $row['id'] . "Email: " . $row['email'];
 }
 echo "successfully executed";
