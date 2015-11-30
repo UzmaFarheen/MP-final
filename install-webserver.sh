@@ -4,13 +4,12 @@ sudo apt-get -y update
 sudo apt-get install -y apache2 git php5 php5-curl mysql-client curl php5-mysql php5-imagick
 
 git clone https://github.com/UzmaFarheen/MP-final.git
-git clone https://github.com/UzmaFarheen/MP1-PHP.git
+https://github.com/UzmaFarheen/ITMO544-localinstance.git
 
-sudo mv ./MP1-PHP/index.html /var/www/html
-sudo mv ./MP1-PHP/page2.html /var/www/html
-sudo mv ./MP1-PHP/*.css /var/www/html
-sudo mv ./MP1-PHP/*.js /var/www/html
-sudo mv ./MP1-PHP/*.php /var/www/html
+sudo mv ./MP-final/index.html /var/www/html
+sudo mv ./MP-final/*.css /var/www/html
+sudo mv ./MP-final/*.js /var/www/html
+sudo mv ./MP-final/*.php /var/www/html
 sudo mv ./ITMO544-localinstance/images/*.jpeg /var/www/html
 
 curl -sS https://getcomposer.org/installer | sudo php &> /tmp/getcomposer.txt
