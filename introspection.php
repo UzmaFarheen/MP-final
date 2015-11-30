@@ -47,6 +47,7 @@ $result = $s3->putObject([
 ]);
 $url = $result['ObjectURL'];
 echo $url;
+echo "Database backup created successfully.";
 $urlintro       = "index.php";
    header('Location: ' . $urlintro, true);
    die();
