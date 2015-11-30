@@ -124,6 +124,7 @@ $pub = $result->publish(array(
     
     
 ));
+}
 else
 {
 $url    = "temp.php";
