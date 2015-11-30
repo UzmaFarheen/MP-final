@@ -70,7 +70,6 @@ if((isset($_SESSION['alertmsg']))&&($_SESSION['alertmsg'])){
 echo "Please confirm subcription to receive notification";
 }
 echo '</div>';
-*/
 $linkrdb->close();
 session_unset();
 echo "<a href='index.php'/>home!!!</a>"
