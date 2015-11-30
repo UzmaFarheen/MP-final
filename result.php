@@ -52,6 +52,20 @@ $result = $s3->putObject([
 ]);
 $url = $result['ObjectURL'];
 echo $url;
+$thumbimageobj = new Imagick($uploadfile);
+$thumbimageobj->thumbnailImage(80,80);
+$thumbimageobj->writeImage();
+echo "thumbnail";
+//print_r($resultfinished);
+$resultfinished = $s3->putObject([
+    'ACL' => 'public-read',
+    'Bucket' => $bucket,
+   'Key' => "FinishedURL".$uploadfile,
+'ContentType' => $_FILES['userfile']['type'],
+'Body' => fopen($uploadfile,'r+')
+]);
+$finishedurl = $resultfinished['ObjectURL'];
+echo $finishedurl;
 $rds = new Aws\Rds\RdsClient([
     'version' => 'latest',
     'region'  => 'us-east-1'
@@ -110,21 +124,35 @@ $pub = $result->publish(array(
     
     
 ));
-$link->real_query("SELECT * FROM ITMO544");
-$res = $link->use_result();
+else
+{
+$url    = "temp.php";
+   header('Location: ' . $url, true);
+   die();
+}
+#RDB Connection:
+$resultrdb = $rds->describeDBInstances(array(
+    'DBInstanceIdentifier' => 'mp1-replica'
+
+));
+$endpointrdb = $resultrdb['DBInstances'][0]['Endpoint']['Address'];
+    echo "============\n". $endpointrdb . "================";
+$linkrdb = mysqli_connect($endpointrdb,"testconnection1","testconnection1","Project1");
+if (mysqli_connect_errno()) {
+    printf("Connect failed: %s\n", mysqli_connect_error());
+    exit();
+}
+else {
+echo "Connection to Read replica Database Success";
+}
+$linkrdb->real_query("SELECT * FROM ITMO544");
+$resrdb = $linkrdb->use_result();
 echo "Result set order...\n";
-while ($row = $res->fetch_assoc()) {
+while ($row = $resrdb->fetch_assoc()) {
     echo $row['id'] . " " . $row['email']. " " . $row['phoneforsms'];
 }
-$link->close();
-$url	= "gallery.php";
+$linkrdb->close();
+$url    = "gallery.php";
    header('Location: ' . $url, true);
-   die();
-}
-else 
-{
-$url	= "tmp.php";
-   header('Location: ' . $url, true);
-   die();
-}
-?> 
+  die();
+?>
