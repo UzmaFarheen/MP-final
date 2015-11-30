@@ -27,7 +27,7 @@ label {
 </div>
 <?php
 if((isset($_SESSION['introspec']))&&($_SESSION['introspec'])){
-echo "MySQL dump in progress Admin has disabled form! Click on view Images to view gallery ";
+echo "Work in Progress! Click on view previous Images ";
 }
 else
 {
