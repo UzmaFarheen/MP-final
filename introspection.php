@@ -45,24 +45,6 @@ $result = $s3->putObject([
 'SourceFile'   => $backupFile,
 'Body' => fopen($backupFile,'r+'),
 ]);
-$result = $s3->putBucketLifecycleConfiguration([
-		'Bucket' => $bucket,
-'LifecycleConfiguration' => [
-			'Rules' => [ 
-				[
-				'Expiration' => [
-				'Days' => 4,
-				],	
-			'NoncurrentVersionExpiration' => [
-			'NoncurrentDays' => 4,
-				],
-			'Prefix' => '', 
-			'Status' => 'Enabled',
-			],
-			],
-		],
-	]);
-echo "backup success";
 $url = $result['ObjectURL'];
 echo $url;
 $urlintro       = "index.php";
