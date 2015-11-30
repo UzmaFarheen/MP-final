@@ -1,7 +1,7 @@
 !/bin/bash
 declare -a array
 
-mapfile -t array< <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --security-group-id $4 --subnet-id $5 --key-name $6 --associate-public-ip-address --user-data install-webserver.sh --iam-instance-profile $7) 
+mapfile -t array< <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --security-group-id $4 --subnet-id $5 --key-name $6 --associate-public-ip-address --user-data install-webserver.sh --iam-instance-profile Name=$7) 
 
 #ec2 wait command-
 aws ec2 wait instance-running --instance-ids ${array[@]}
@@ -19,7 +19,7 @@ aws elb configure-health-check --load-balancer-name ITMO-544-MP-loadbalancer --h
 aws elb create-lb-cookie-stickiness-policy --load-balancer-name ITMO-544-MP-loadbalancer --policy-name ITMO-544-cookiepolicy --cookie-expiration-period 60
 
 #launch configuration creattion
-aws autoscaling create-launch-configuration --launch-configuration-name itmo544-launch-config --image-id $1 --count $2 --instance-type $3 --security-groups $4  --key-name $6  --user-data install-webserver.sh --iam-instance-profile $7
+aws autoscaling create-launch-configuration --launch-configuration-name itmo544-launch-config --image-id $1 --count $2 --instance-type $3 --security-groups $4  --key-name $6  --user-data install-webserver.sh --iam-instance-profile Name=$7
 
 #Autoscaling group creation
 aws autoscaling create-auto-scaling-group --auto-scaling-group-name itmo-544-autoscaling --launch-configuration-name itmo544-launch-config --load-balancer-names ITMO-544-MP-loadbalancer  --health-check-type ELB --min-size 3 --max-size 6 --desired-capacity 3 --default-cooldown 600 --health-check-grace-period 120 --vpc-zone-identifier $5 
