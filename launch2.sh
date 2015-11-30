@@ -1,16 +1,16 @@
 !/bin/bash
-declare -a ARR
+declare -a array
 
-mapfile -t ARR < <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --security-group-id $4 --subnet-id $5 --key-name $6 --associate-public-ip-address --user-data install-webserver.sh --iam-instance-profile $7) 
+mapfile -t array< <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --security-group-id $4 --subnet-id $5 --key-name $6 --associate-public-ip-address --user-data install-webserver.sh --iam-instance-profile $7) 
 
 #ec2 wait command-
-aws ec2 wait instance-running --instance-ids ${ARR[@]}
+aws ec2 wait instance-running --instance-ids ${array[@]}
 
 #load balancer creation
 aws elb create-load-balancer --load-balancer-name ITMO-544-MP-loadbalancer --listeners "Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80" --security-groups $4 --subnet $5 
 
 #load balancer registration
-aws elb register-instances-with-load-balancer --load-balancer-name ITMO-544-MP-loadbalancer --instance-ids ${ARR[@]} 
+aws elb register-instances-with-load-balancer --load-balancer-name ITMO-544-MP-loadbalancer --instance-ids ${array[@]} 
 
 #health check policy configuration
 aws elb configure-health-check --load-balancer-name ITMO-544-MP-loadbalancer --health-check Target=HTTP:80/png,Interval=30,UnhealthyThreshold=2,HealthyThreshold=2,Timeout=3
