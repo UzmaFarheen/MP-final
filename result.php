@@ -137,7 +137,7 @@ $resultrdb = $rds->describeDBInstances(array(
 ));
 $endpointrdb = $resultrdb['DBInstances'][0]['Endpoint']['Address'];
     echo "============\n". $endpointrdb . "================";
-$linkrdb = mysqli_connect($endpointrdb,"testconnection1","testconnection1","Project1");
+$linkrdb = mysqli_connect($endpointrdb,"UzmaFarheen","UzmaFarheen","Project");
 if (mysqli_connect_errno()) {
     printf("Connect failed: %s\n", mysqli_connect_error());
     exit();
