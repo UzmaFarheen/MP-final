@@ -5,6 +5,7 @@
 <style type="text/css">
 
 body {
+    background-image: url("http://weknowyourdreams.com/images/cloud/cloud-03.jpg");
     font-family: "Trebuchet MS", Verdana, sans-serif;
     font-size: 16px;
     background-color: dimgrey;
@@ -26,13 +27,13 @@ label {
 <a href='introspection.php'/>DB Backup!</a></br>
 </div>
 <!-- The data encoding type, enctype, MUST be specified as below -->
-<form enctype="multipart/form-data" action="result.php" method="POST">
+ <label><</label><form enctype="multipart/form-data" action="result.php" method="POST">
     <!-- MAX_FILE_SIZE must precede the file input field -->
-    <input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
+    <input type="hidden" name="MAX_FILE_SIZE" value="3000000" /></label>
     <!-- Name of input element determines name in $_FILES array -->
 <label>    Send this file: <input name="userfile" type="file" accept="image/png,image/jpeg"/$
 <label>Enter Email of user: <input type="email" name="useremail"><br /></label>
-Enter Phone of user (1-XXX-XXX-XXXX): <input type="phone" name="phoneforsms">
+<label>Enter Phone of user (1-XXX-XXX-XXXX): <input type="phone" name="phoneforsms"></label>
 
 
 <input type="submit" value="Send File" />
