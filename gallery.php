@@ -9,7 +9,7 @@
 <body>
 
 <?php
-session_start();
+//session_start();
 //$email = $_POST["email"];
 //echo $email;
 require 'vendor/autoload.php';
