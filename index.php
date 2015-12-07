@@ -62,7 +62,7 @@ label {
 
 Enter Email of user for gallery to browse: <input type="email" name="email">
 <input type="submit" value="Load Gallery" />
-</label>
 </form>
+</label>
 </body>
 </html>
