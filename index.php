@@ -5,7 +5,6 @@
 <style type="text/css">
 
 body {
-    background-image: url("http://weknowyourdreams.com/images/cloud/cloud-03.jpg");
     font-family: "Trebuchet MS", Verdana, sans-serif;
     font-size: 16px;
     background-color: dimgrey;
@@ -57,12 +56,10 @@ label {
 <tr></td><input type="submit" value="Send File" /></td></tr>
 </table>
 </form>
-<label>
 <form enctype="multipart/form-data" action="gallery.php" method="POST">
 
-Enter Email of user for gallery to browse: <input type="email" name="email">
-<input type="submit" value="Load Gallery" />
+<label>Enter Email of user for gallery to browse: <input type="email" name="email">
+<input type="submit" value="Load Gallery" /></label>
 </form>
-</label>
 </body>
 </html>
