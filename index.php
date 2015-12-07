@@ -58,8 +58,8 @@ label {
 </form>
 <form enctype="multipart/form-data" action="gallery.php" method="POST">
 
-<label>Enter Email of user for gallery to browse: <input type="email" name="email"></label>
-<label><input type="submit" value="Load Gallery" /></label>
+Enter Email of user for gallery to browse: <input type="email" name="email">
+<input type="submit" value="Load Gallery" />
 </form>
 </body>
 </html>
