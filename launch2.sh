@@ -22,21 +22,21 @@ aws elb create-lb-cookie-stickiness-policy --load-balancer-name ITMO-544-MP-load
 aws autoscaling create-launch-configuration --launch-configuration-name itmo544-launch-config --image-id $1 --instance-type $3 --security-groups $4  --key-name $6  --user-data install-webserver.sh --iam-instance-profile "$7"
 
 #Autoscaling group creation
-$Autoscaling=('aws autoscaling create-auto-scaling-group --auto-scaling-group-name itmo-544-autoscaling --launch-configuration-name itmo544-launch-config --load-balancer-names ITMO-544-MP-loadbalancer  --health-check-type ELB --min-size 3 --max-size 6 --desired-capacity 3 --default-cooldown 600 --health-check-grace-period 120 --vpc-zone-identifier $5') 
+aws autoscaling create-auto-scaling-group --auto-scaling-group-name itmo-544-autoscaling --launch-configuration-name itmo544-launch-config --load-balancer-names ITMO-544-MP-loadbalancer  --health-check-type ELB --min-size 3 --max-size 6 --desired-capacity 3 --default-cooldown 600 --health-check-grace-period 120 --vpc-zone-identifier $5
 
 #AutoScaling Policy-Increase
 
-INCREASE=(`aws autoscaling put-scaling-policy --auto-scaling-group-name $Autoscaling --policy-name scalingpolicyincrease --scaling-adjustment 3 --adjustment-type ChangeInCapacity`)
+INCREASE=(`aws autoscaling put-scaling-policy --auto-scaling-group-name itmo-544-autoscaling --policy-name scalingpolicyincrease --scaling-adjustment 3 --adjustment-type ChangeInCapacity`)
 
 #AutoScaling Policy-Decrease
 
-DECREASE=(`aws autoscaling put-scaling-policy --auto-scaling-group-name $Autoscaling --policy-name scalingpolicydecrease --scaling-adjustment -3 --adjustment-type ChangeInCapacity`)
+DECREASE=(`aws autoscaling put-scaling-policy --auto-scaling-group-name itmo-544-autoscaling --policy-name scalingpolicydecrease --scaling-adjustment -3 --adjustment-type ChangeInCapacity`)
 
 #Cloud Watch Metric 
 
-aws cloudwatch put-metric-alarm --alarm-name Add --alarm-description "CPU exceeds 30 percent" --metric-name CPUUtilization --namespace AWS/EC2 --statistic Average --period 60 --threshold 30 --comparison-operator GreaterThanOrEqualToThreshold --evaluation-periods 1 --unit Percent --dimensions "Name=itmo-544-autoscaling,Value=$Autoscaling" --alarm-actions $INCREASE
+aws cloudwatch put-metric-alarm --alarm-name Add --alarm-description "CPU exceeds 30 percent" --metric-name CPUUtilization --namespace AWS/EC2 --statistic Average --period 60 --threshold 30 --comparison-operator GreaterThanOrEqualToThreshold --evaluation-periods 1 --unit Percent --dimensions "Name=AutoScalingGroupName,Value=itmo-544-autoscaling" --alarm-actions $INCREASE
 
-aws cloudwatch put-metric-alarm --alarm-name Reduce --alarm-description "CPU falls below 10 percent" --metric-name CPUUtilization --namespace AWS/EC2 --statistic Average --period 60 --threshold 10 --comparison-operator LessThanOrEqualToThreshold --evaluation-periods 1 --unit Percent --dimensions "Name=itmo-544-autoscaling,Value=$Autoscaling" --alarm-actions $DECREASE
+aws cloudwatch put-metric-alarm --alarm-name Reduce --alarm-description "CPU falls below 10 percent" --metric-name CPUUtilization --namespace AWS/EC2 --statistic Average --period 60 --threshold 10 --comparison-operator LessThanOrEqualToThreshold --evaluation-periods 1 --unit Percent --dimensions "Name=AutoScalingGroupName,Value=itmo-544-autoscaling" --alarm-actions $DECREASE
 
 #SNS topic for image subscription
 
