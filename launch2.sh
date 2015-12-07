@@ -1,16 +1,18 @@
-!/bin/bash
+#!/bin/bash
 declare -a array
 
-mapfile -t array< <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --security-group-id $4 --subnet-id $5 --key-name $6 --associate-public-ip-address --user-data install-webserver.sh --iam-instance-profile Name=$7) 
+mapfile -t array< <(aws ec2 run-instances --image-id $1 --count $2 --instance-type $3 --security-group-id $4 --subnet-id $5 --key-name $6 --associate-public-ip-address --user-data install-webserver.sh --iam-instance-profile Name=$7  --output table | grep InstanceId | sed "s/|//g" | tr -d ' ' | sed "s/InstanceId//g") 
 
 #ec2 wait command-
 aws ec2 wait instance-running --instance-ids ${array[@]}
 
 #load balancer creation
 aws elb create-load-balancer --load-balancer-name ITMO-544-MP-loadbalancer --listeners "Protocol=HTTP,LoadBalancerPort=80,InstanceProtocol=HTTP,InstancePort=80" --security-groups $4 --subnet $5 
-
+echo -e "\n Finished launching ELB and sleeping 25 seconds"
+for i in {0..25}; do echo -ne '.'; sleep 1;done
+echo "\n"
 #load balancer registration
-aws elb register-instances-with-load-balancer --load-balancer-name ITMO-544-MP-loadbalancer --instance-ids ${array[@]} 
+aws elb register-instances-with-load-balancer --load-balancer-name ITMO-544-MP-loadbalancer --instances ${array[@]} 
 
 #health check policy configuration
 aws elb configure-health-check --load-balancer-name ITMO-544-MP-loadbalancer --health-check Target=HTTP:80/png,Interval=30,UnhealthyThreshold=2,HealthyThreshold=2,Timeout=3
