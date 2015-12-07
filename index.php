@@ -5,6 +5,7 @@
 <style type="text/css">
 
 body {
+    background-image: url("http://weknowyourdreams.com/images/cloud/cloud-03.jpg");
     font-family: "Trebuchet MS", Verdana, sans-serif;
     font-size: 16px;
     background-color: dimgrey;
